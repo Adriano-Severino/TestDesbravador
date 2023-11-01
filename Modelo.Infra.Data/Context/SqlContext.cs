@@ -16,13 +16,14 @@ namespace Modelo.Infra.Data.Context
 
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Employees> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>(new UserMap().Configure);
+            modelBuilder.Entity<Employees>(new EmployeesMap().Configure);
+            modelBuilder.Entity<Project>(new ProjectMap().Configure);
         }
     }
 }

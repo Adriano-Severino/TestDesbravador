@@ -1,9 +1,9 @@
 ﻿namespace Modelo.Application.Models
 {
-    public class CreateUserModel
+    public class LoginEmployeesModel
     {
-        public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
     }
 }

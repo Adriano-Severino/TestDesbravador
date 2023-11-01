@@ -7,8 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Modelo.Application.Models;
+using Modelo.Domain.Dto;
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces;
+using Modelo.Infra.CrossCutting.EmployeesApi;
+using Modelo.Infra.CrossCutting.Interfaces;
 using Modelo.Infra.Data.Context;
 using Modelo.Infra.Data.Repository;
 using Modelo.Service.Services;
@@ -63,16 +66,26 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
-builder.Services.AddScoped<IBaseService<User>, BaseService<User>>();
+builder.Services.AddScoped<IBaseRepository<Employees>, BaseRepository<Employees>>();
+builder.Services.AddScoped<IBaseRepository<Project>, BaseRepository<Project>>();
+builder.Services.AddScoped<IBaseService<Employees>, BaseService<Employees>>();
+builder.Services.AddScoped<IBaseService<Project>, BaseService<Project>>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IServiceEmployees, ServiceEmployees>();
+builder.Services.AddScoped<IEmployeesServiceApi, EmployeesServiceApi>();
 
 builder.Services.AddSingleton(new MapperConfiguration(config =>
 {
-    config.CreateMap<LoginUserModel, User>();
-    config.CreateMap<UpdateUserModel, User>();
-    config.CreateMap<CreateUserModel, User>();
-    config.CreateMap<User, UserModel>();
+    config.CreateMap<LoginEmployeesModel, Employees>();
+    config.CreateMap<UpdateEmployeesModel, Employees>();
+    config.CreateMap<CreateEmployeesModel, Employees>();
+    config.CreateMap<Employees, EmployeesModel>();
+    config.CreateMap<CreateEmployeesDto, Employees>();
+
+    config.CreateMap<CreateProjectModel, Project>();
+    config.CreateMap<UpdateProjectModel, Project>();
+    config.CreateMap<Project, ProjectModel>();
+    config.CreateMap<CreateProjectDto, Project>();
 
 }).CreateMapper());
 

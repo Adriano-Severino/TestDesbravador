@@ -6,9 +6,9 @@ namespace Modelo.Domain.Interfaces
     {
         void Insert(TEntity obj);
         void Update(TEntity obj);
-        void Delete(Guid id);
-        IList<TEntity> Select();
-        TEntity Select(Guid id);
-        User SelectByEmail(string email);
+        Task<bool> Delete(Guid id);
+        Task<IList<TEntity>> Select();
+        Task<TEntity> Select(Guid id);
+        Task<Employees> SelectByEmail(string email);
     }
 }

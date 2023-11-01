@@ -1,7 +1,6 @@
 ﻿namespace Modelo.Application.Models
 {
-    public class UpdateUserModel : UserModel
+    public class UpdateProjectModel : ProjectModel
     {
-
     }
 }

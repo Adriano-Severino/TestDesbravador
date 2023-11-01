@@ -11,15 +11,15 @@ namespace Modelo.Service.Services
 {
     public class TokenService : ITokenService
     {
-        private IBaseService<User> _baseUserService;
-        public TokenService(IBaseService<User> baseService)
+        private IBaseService<Employees> _baseUserService;
+        public TokenService(IBaseService<Employees> baseService)
         {
             _baseUserService = baseService;
         }
 
         public async Task<ResultLoginDto> LoginAsync(string email, string password)
         {
-            var userDomain = _baseUserService.GetByEmail<User>(email);
+            var userDomain = await _baseUserService.GetByEmail<Employees>(email);
             var resultLoginDto = new ResultLoginDto();
             if (userDomain == null)
             {
@@ -29,7 +29,7 @@ namespace Modelo.Service.Services
                 return resultLoginDto;
             }
 
-            if (userDomain.Password != userDomain.Password || userDomain.Name != userDomain.Name)
+            if (userDomain.Password != userDomain.Password || userDomain.Nome != userDomain.Nome)
             {
                 resultLoginDto.Success = false;
                 resultLoginDto.Message = "Erro ao tentar fazer login no sistema!";
@@ -42,7 +42,7 @@ namespace Modelo.Service.Services
             resultLoginDto.Token = token;
             return resultLoginDto;
         }
-        private async Task<string> GetTokenAsync(User user)
+        private async Task<string> GetTokenAsync(Employees employees)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
@@ -50,9 +50,9 @@ namespace Modelo.Service.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Name),
-                    new Claim("Role", user.Role)
+                    new Claim(ClaimTypes.NameIdentifier, employees.Id.ToString()),
+                    new Claim(ClaimTypes.Name, employees.Nome),
+                    new Claim("Role", employees.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

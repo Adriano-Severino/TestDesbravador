@@ -4,19 +4,25 @@ using Modelo.Domain.Entities;
 
 namespace Modelo.Infra.Data.Mapping
 {
-    public class UserMap : IEntityTypeConfiguration<User>
+    public class EmployeesMap : IEntityTypeConfiguration<Employees>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Employees> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("Employees");
 
             builder.HasKey(prop => prop.Id);
 
-            builder.Property(prop => prop.Name)
+            builder.Property(prop => prop.Nome)
                 .HasConversion(prop => prop.ToString(), prop => prop)
                 .IsRequired()
-                .HasColumnName("Name")
+                .HasColumnName("Nome")
                 .HasColumnType("varchar(100)");
+
+            builder.Property(prop => prop.Sobrenome)
+              .HasConversion(prop => prop.ToString(), prop => prop)
+              .IsRequired()
+              .HasColumnName("SobreNome")
+              .HasColumnType("varchar(100)");
 
             builder.Property(prop => prop.Email)
                .HasConversion(prop => prop.ToString(), prop => prop)

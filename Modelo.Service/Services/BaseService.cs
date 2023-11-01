@@ -2,6 +2,7 @@
 using FluentValidation;
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces;
+using Modelo.Infra.CrossCutting.Interfaces;
 
 namespace Modelo.Service.Services
 {
@@ -9,13 +10,15 @@ namespace Modelo.Service.Services
     {
         private readonly IBaseRepository<TEntity> _baseRepository;
         private readonly IMapper _mapper;
+        private readonly IEmployeesServiceApi _EmployeesApi;
 
-        public BaseService(IBaseRepository<TEntity> baseRepository, IMapper mapper)
+        public BaseService(IBaseRepository<TEntity> baseRepository, IMapper mapper, IEmployeesServiceApi employees)
         {
             _baseRepository = baseRepository;
             _mapper = mapper;
+            _EmployeesApi = employees;
         }
-        public TOutputModel Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+        public async Task<TOutputModel> Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
             where TValidator : AbstractValidator<TEntity>
             where TInputModel : class
             where TOutputModel : class
@@ -24,33 +27,32 @@ namespace Modelo.Service.Services
             Validate(entity, Activator.CreateInstance<TValidator>());
             _baseRepository.Insert(entity);
             TOutputModel outputModel = _mapper.Map<TOutputModel>(entity);
-
-            return outputModel;
+            return await Task.FromResult(outputModel);
         }
 
-        public void Delete(Guid id) => _baseRepository.Delete(id);
+        public async Task<bool> Delete(Guid id) => await _baseRepository.Delete(id);
 
-        public IEnumerable<TOutputModel> Get<TOutputModel>() where TOutputModel : class
+        public async Task<IEnumerable<TOutputModel>> Get<TOutputModel>() where TOutputModel : class
         {
-            var entities = _baseRepository.Select();
+            var entities = await _baseRepository.Select();
             var outputModels = entities.Select(s => _mapper.Map<TOutputModel>(s));
-            return outputModels;
+            return await Task.FromResult(outputModels);
         }
 
-        public TOutputModel GetById<TOutputModel>(Guid id) where TOutputModel : class
+        public async Task<TOutputModel> GetById<TOutputModel>(Guid id) where TOutputModel : class
         {
             var entity = _baseRepository.Select(id);
             var outputModel = _mapper.Map<TOutputModel>(entity);
-            return outputModel;
+            return await Task.FromResult(outputModel);
         }
-        public TOutputModel GetByEmail<TOutputModel>(string email) where TOutputModel : class
+        public async Task<TOutputModel> GetByEmail<TOutputModel>(string email) where TOutputModel : class
         {
             var entity = _baseRepository.SelectByEmail(email);
             var outputModel = _mapper.Map<TOutputModel>(entity);
-            return outputModel;
+            return await Task.FromResult(outputModel);
         }
 
-        public TOutputModel Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+        public async Task<TOutputModel> Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
             where TValidator : AbstractValidator<TEntity>
             where TInputModel : class
             where TOutputModel : class
@@ -60,7 +62,7 @@ namespace Modelo.Service.Services
             _baseRepository.Update(entity);
             TOutputModel outputModel = _mapper.Map<TOutputModel>(entity);
 
-            return outputModel;
+            return await Task.FromResult(outputModel);
         }
 
         private void Validate(TEntity obj, AbstractValidator<TEntity> validator)

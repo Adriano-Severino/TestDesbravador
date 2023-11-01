@@ -1,4 +1,5 @@
-﻿using Modelo.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces;
 using Modelo.Infra.Data.Context;
 
@@ -24,20 +25,22 @@ namespace Modelo.Infra.Data.Repository
             _sqlContext.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
-            _sqlContext.Set<TEntity>().Remove(Select(id));
-            _sqlContext.SaveChanges();
+            _sqlContext.Set<TEntity>().Remove(Select(id).Result);
+            await _sqlContext.SaveChangesAsync();
+            return true;
         }
 
-        public IList<TEntity> Select() =>
-            _sqlContext.Set<TEntity>().ToList();
 
-        public TEntity Select(Guid id) =>
-            _sqlContext.Set<TEntity>().Find(id);
+        public async Task<IList<TEntity>> Select() =>
+          await _sqlContext.Set<TEntity>().ToListAsync();
 
-        public User SelectByEmail(string email) =>
-       _sqlContext.Set<User>().FirstOrDefault(user => user.Email == email);
+        public async Task<TEntity> Select(Guid id) =>
+          await _sqlContext.Set<TEntity>().FindAsync(id);
+
+        public async Task<Employees> SelectByEmail(string email) =>
+      await _sqlContext.Set<Employees>().FirstOrDefaultAsync(user => user.Email == email);
 
     }
 }
