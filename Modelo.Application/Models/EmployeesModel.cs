@@ -1,4 +1,6 @@
-﻿namespace Modelo.Application.Models
+﻿using Modelo.Domain.Enums;
+
+namespace Modelo.Application.Models
 {
     public class EmployeesModel
     {
@@ -7,6 +9,7 @@
         public string Sobrenome { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public RoleEnum Role { get; set; }
+        public Guid? ProjectId { get; set; }
     }
 }

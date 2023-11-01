@@ -12,7 +12,7 @@ using Modelo.Infra.Data.Context;
 namespace Modelo.Infra.Data.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20231101020356_Initial")]
+    [Migration("20231101030925_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -46,9 +46,11 @@ namespace Modelo.Infra.Data.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Password");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
+                    b.Property<Guid?>("ProjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int")
                         .HasColumnName("Role");
 
                     b.Property<string>("Sobrenome")
@@ -57,6 +59,8 @@ namespace Modelo.Infra.Data.Migrations
                         .HasColumnName("SobreNome");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Employees", (string)null);
                 });
@@ -67,7 +71,7 @@ namespace Modelo.Infra.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("date")
                         .HasColumnName("DataFinal");
 
@@ -96,6 +100,20 @@ namespace Modelo.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Project", (string)null);
+                });
+
+            modelBuilder.Entity("Modelo.Domain.Entities.Employees", b =>
+                {
+                    b.HasOne("Modelo.Domain.Entities.Project", "Project")
+                        .WithMany("Employees")
+                        .HasForeignKey("ProjectId");
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("Modelo.Domain.Entities.Project", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

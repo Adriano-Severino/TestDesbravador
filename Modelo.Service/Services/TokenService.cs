@@ -52,7 +52,7 @@ namespace Modelo.Service.Services
                 {
                     new Claim(ClaimTypes.NameIdentifier, employees.Id.ToString()),
                     new Claim(ClaimTypes.Name, employees.Nome),
-                    new Claim("Role", employees.Role)
+                    new Claim("Role", employees.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -10,6 +10,7 @@ using Modelo.Service.Validators;
 namespace Modelo.Application.Controllers
 {
     [Route("api/v1/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class EmployeesController : ControllerBase
     {
@@ -35,13 +36,25 @@ namespace Modelo.Application.Controllers
         [HttpPost]
         [Authorize(Policy = "Admin")]
         [Route("create")]
-        public async Task<IActionResult> Create([FromBody] CreateEmployeesModel user)
+        public async Task<IActionResult> Create([FromBody] CreateEmployeesModel createEmployees)
         {
-            if (user == null)
+            if (createEmployees == null)
                 return NotFound();
 
-            return await ExecuteAsync(async () => await _baseUserService.Add<CreateEmployeesModel, EmployeesModel, EmployeesValidator>(user));
+            return await ExecuteAsync(async () => await _baseUserService.Add<CreateEmployeesModel, EmployeesModel, EmployeesValidator>(createEmployees));
         }
+
+        [HttpPut]
+        [Authorize(Policy = "Admin")]
+        [Route("vinculo-projeto")]
+        public async Task<IActionResult> VinculoProject([FromBody] UpdateEmployeesModel updateEmployees)
+        {
+            if (updateEmployees == null)
+                return NotFound();
+
+            return await ExecuteAsync(async () => await _baseUserService.Add<UpdateEmployeesModel, EmployeesModel, EmployeesValidator>(updateEmployees));
+        }
+
 
         [HttpGet]
         [Authorize(Policy = "Admin")]
@@ -55,12 +68,12 @@ namespace Modelo.Application.Controllers
         [HttpPut]
         [Authorize(Policy = "Admin")]
         [Route("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateEmployeesModel user)
+        public async Task<IActionResult> Update([FromBody] UpdateEmployeesModel updateEmployees)
         {
-            if (user == null)
+            if (updateEmployees == null)
                 return NotFound();
 
-            return await ExecuteAsync(async () => await _baseUserService.Update<UpdateEmployeesModel, EmployeesModel, EmployeesValidator>(user));
+            return await ExecuteAsync(async () => await _baseUserService.Update<UpdateEmployeesModel, EmployeesModel, EmployeesValidator>(updateEmployees));
         }
 
         [HttpDelete("{id}")]

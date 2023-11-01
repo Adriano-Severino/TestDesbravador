@@ -17,6 +17,7 @@ namespace Modelo.Service.Validators
 
             RuleFor(c => c.Email)
                 .NotEmpty().WithMessage("Por favor digite um email.")
+                .EmailAddress().WithMessage("Por favor digite um email válido.")
                 .NotNull().WithMessage("Por favor digite um email.");
 
             RuleFor(c => c.Password)

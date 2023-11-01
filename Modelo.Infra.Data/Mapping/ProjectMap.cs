@@ -31,8 +31,6 @@ namespace Modelo.Infra.Data.Mapping
                .HasColumnType("date");
 
             builder.Property(prop => prop.EndDate)
-                .HasConversion(prop => prop, prop => prop.Date)
-                .IsRequired()
                 .HasColumnName("DataFinal")
                 .HasColumnType("date");
 

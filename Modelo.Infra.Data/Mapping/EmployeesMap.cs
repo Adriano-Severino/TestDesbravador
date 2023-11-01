@@ -37,9 +37,8 @@ namespace Modelo.Infra.Data.Mapping
                 .HasColumnType("varchar(100)");
 
             builder.Property(prop => prop.Role)
-               .HasConversion(prop => prop.ToString(), prop => prop)
-               .HasColumnName("Role")
-               .HasColumnType("varchar(100)");
+               .HasConversion<int>()
+               .HasColumnName("Role");
         }
     }
 }

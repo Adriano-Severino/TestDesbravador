@@ -3,20 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 using Modelo.Application.Models;
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces;
+using Modelo.Infra.CrossCutting.Models;
 using Modelo.Service.Validators;
 
 namespace Modelo.Application.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ProjectController : ControllerBase
     {
         private IBaseService<Project> _baseUserService;
+        
         public ProjectController(IBaseService<Project> baseUserService)
         {
             _baseUserService = baseUserService;
         }
-      
+
         [HttpPost]
         [Authorize(Policy = "Admin")]
         [Route("create")]
@@ -27,7 +30,7 @@ namespace Modelo.Application.Controllers
 
             return await ExecuteAsync(async () => await _baseUserService.Add<CreateProjectModel, ProjectModel, ProjectValidator>(createProject));
         }
-        
+
         [HttpPut]
         [Authorize(Policy = "Admin")]
         [Route("update")]
@@ -81,6 +84,6 @@ namespace Modelo.Application.Controllers
                 return BadRequest(ex);
             }
         }
-
+       
     }
 }
