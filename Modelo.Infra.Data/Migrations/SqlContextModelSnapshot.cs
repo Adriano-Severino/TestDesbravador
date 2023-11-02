@@ -60,6 +60,17 @@ namespace Modelo.Infra.Data.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Employees", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bb82410e-b06b-4541-bc2c-7a40c7dfb8d8"),
+                            Email = "admin@admin.com",
+                            Nome = "Adminsitrador",
+                            Password = "123",
+                            Role = 1,
+                            Sobrenome = "adiminsitrador"
+                        });
                 });
 
             modelBuilder.Entity("Modelo.Domain.Entities.Project", b =>
