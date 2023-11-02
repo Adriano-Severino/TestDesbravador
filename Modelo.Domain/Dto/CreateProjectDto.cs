@@ -4,6 +4,7 @@ namespace Modelo.Domain.Dto
 {
     public class CreateProjectDto
     {
+        public Guid Id { get; set; }
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
         public DateTime StartDate { get; set; }

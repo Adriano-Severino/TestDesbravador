@@ -4,7 +4,6 @@ using Modelo.Application.Models;
 using Modelo.Domain.Dto;
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces;
-using Modelo.Infra.CrossCutting.Interfaces;
 using Modelo.Service.Validators;
 
 namespace Modelo.Application.Controllers
@@ -17,6 +16,7 @@ namespace Modelo.Application.Controllers
         private IBaseService<Employees> _baseUserService;
         private ITokenService _tokenService;
         private IServiceEmployees _serviceEmployees;
+
 
         public EmployeesController(IBaseService<Employees> baseUserService, ITokenService tokenService, IServiceEmployees serviceEmployees)
         {

@@ -32,15 +32,25 @@ namespace Modelo.Infra.Data.Repository
             return true;
         }
 
-
-        public async Task<IList<TEntity>> Select() =>
-          await _sqlContext.Set<TEntity>().ToListAsync();
+        public async Task<IList<TEntity>> Select()
+        {
+            if (typeof(TEntity) == typeof(Project))
+            {
+                return await _sqlContext.Set<TEntity>()
+                    .Include("Employees")
+                    .ToListAsync();
+            }
+            else
+            {
+                return await _sqlContext.Set<TEntity>().ToListAsync();
+            }
+        }
 
         public async Task<TEntity> Select(Guid id) =>
           await _sqlContext.Set<TEntity>().FindAsync(id);
 
         public async Task<Employees> SelectByEmail(string email) =>
-      await _sqlContext.Set<Employees>().FirstOrDefaultAsync(user => user.Email == email);
+          await _sqlContext.Set<Employees>().FirstOrDefaultAsync(user => user.Email == email);
 
     }
 }

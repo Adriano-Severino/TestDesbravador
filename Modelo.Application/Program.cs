@@ -70,9 +70,14 @@ builder.Services.AddScoped<IBaseRepository<Employees>, BaseRepository<Employees>
 builder.Services.AddScoped<IBaseRepository<Project>, BaseRepository<Project>>();
 builder.Services.AddScoped<IBaseService<Employees>, BaseService<Employees>>();
 builder.Services.AddScoped<IBaseService<Project>, BaseService<Project>>();
-builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddScoped<IServiceEmployees, ServiceEmployees>();
 builder.Services.AddScoped<IEmployeesServiceApi, EmployeesServiceApi>();
+builder.Services.AddScoped<IUpdateRepository, UpdateRepository>();
+builder.Services.AddScoped<IUpdateService, UpdateService>();
+builder.Services.AddScoped<TaskUpdateProject<Project>>();
+builder.Services.AddScoped(typeof(BaseService<Project>));
+
 
 builder.Services.AddSingleton(new MapperConfiguration(config =>
 {

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Modelo.Application.Models;
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces;
-using Modelo.Infra.CrossCutting.Models;
 using Modelo.Service.Validators;
 
 namespace Modelo.Application.Controllers
@@ -14,10 +13,11 @@ namespace Modelo.Application.Controllers
     public class ProjectController : ControllerBase
     {
         private IBaseService<Project> _baseUserService;
-        
-        public ProjectController(IBaseService<Project> baseUserService)
+        private readonly IUpdateService _updateService;
+        public ProjectController(IBaseService<Project> baseUserService, IUpdateService updateService)
         {
             _baseUserService = baseUserService;
+            _updateService = updateService;
         }
 
         [HttpPost]
@@ -61,7 +61,7 @@ namespace Modelo.Application.Controllers
         [Authorize(Policy = "Admin, User")]
         public async Task<IActionResult> Get()
         {
-            return await ExecuteAsync(async () => await _baseUserService.Get<ProjectModel>());
+            return await ExecuteAsync(async () => await _baseUserService.Get<Project>());
         }
 
         [HttpGet("{id}")]
@@ -84,6 +84,6 @@ namespace Modelo.Application.Controllers
                 return BadRequest(ex);
             }
         }
-       
+
     }
 }

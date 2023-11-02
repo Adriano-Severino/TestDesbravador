@@ -10,5 +10,6 @@ namespace Modelo.Domain.Interfaces
         Task<IList<TEntity>> Select();
         Task<TEntity> Select(Guid id);
         Task<Employees> SelectByEmail(string email);
+
     }
 }
