@@ -27,11 +27,12 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<SqlContext>(options =>
 options.UseNpgsql(
                   builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Configuration.AddJsonFile("appsettings.json", false, true);
 
 builder.Services.AddCors(options => options.AddPolicy("Cors", options => options.AllowAnyOrigin()
                .AllowAnyMethod()
                .AllowAnyHeader()));
+
+builder.Configuration.AddJsonFile("appsettings.json", false, true);
 
 builder.Services.AddMvc(config =>
 {
@@ -44,8 +45,8 @@ builder.Services.AddMvc(config =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin, User", policy => policy.RequireAssertion(context =>
-    context.User.HasClaim("ApiSl", "User") || context.User.HasClaim("ApiSl", "Admin")));
-    options.AddPolicy("Admin", policy => policy.RequireClaim("ApiSl", "Admin"));
+    context.User.HasClaim("Modelo.Application", "User") || context.User.HasClaim("Modelo.Application", "Admin")));
+    options.AddPolicy("Admin", policy => policy.RequireClaim("Modelo.Application", "Admin"));
 });
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);

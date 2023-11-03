@@ -1,4 +1,5 @@
-﻿using Modelo.Domain.Interfaces;
+﻿using Modelo.Domain.Enums;
+using Modelo.Domain.Interfaces;
 
 namespace Modelo.Service.Services
 {
@@ -12,16 +13,26 @@ namespace Modelo.Service.Services
         public async Task<bool> UpdateStatusProjectAsync()
         {
             var project = await _updateRepository.GetProjectAsync();
-            foreach (var item in project)
+            var filtro = project.Where(x => x.StatusProjectEnum != StatusProjectEnum.Canceled).ToList();
+
+            if (filtro.Count > 0)
             {
-                if ((int)item.StatusProjectEnum < 16)
+                foreach (var item in filtro)
                 {
-                    item.StatusProjectEnum++;
+                    if ((int)item.StatusProjectEnum < 16)
+                    {
+                        item.StatusProjectEnum++;
+
+                        if ((int)item.StatusProjectEnum == 16 && item.EndDate == null)
+                        {
+                            item.EndDate = DateTime.UtcNow;
+                        }
+                    }
+
                 }
+                await _updateRepository.UpdateStatusProjectAsync(filtro);
 
             }
-            await _updateRepository.UpdateStatusProjectAsync(project);
-
             return true;
 
         }
