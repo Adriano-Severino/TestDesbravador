@@ -53,7 +53,7 @@ namespace Modelo.Infra.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "Email", "Nome", "Password", "ProjectId", "Role", "SobreNome" },
-                values: new object[] { new Guid("6487d702-138d-4e76-aa2a-935109dd15be"), "admin@admin.com", "Adminsitrador", "123", null, 1, "adiminsitrador" });
+                values: new object[] { new Guid("35a28923-fb3f-4bb1-ae65-6ef9a3a5cc8c"), "admin@admin.com", "Adminsitrador", "123", null, 1, "adiminsitrador" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_ProjectId",

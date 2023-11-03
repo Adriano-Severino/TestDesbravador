@@ -64,7 +64,7 @@ namespace Modelo.Infra.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6487d702-138d-4e76-aa2a-935109dd15be"),
+                            Id = new Guid("35a28923-fb3f-4bb1-ae65-6ef9a3a5cc8c"),
                             Email = "admin@admin.com",
                             Nome = "Adminsitrador",
                             Password = "123",
