@@ -4,28 +4,31 @@ namespace Modelo.Domain.Enums
 {
     public enum StatusProjectEnum
     {
+        [Display(Name = "Em criaçao")]
+        Create = 0,
+
         [Display(Name = "Em análise")]
-        UnderAnalysis,
+        UnderAnalysis = 2,
 
         [Display(Name = "Análise realizada")]
-        AnalysisPerformed,
+        AnalysisPerformed = 4,
 
         [Display(Name = "Análise aprovada")]
-        AnalysisApproved,
+        AnalysisApproved = 6,
 
         [Display(Name = "Iniciado")]
-        Started,
+        Started = 8,
 
         [Display(Name = "Planejado")]
-        Planned,
+        Planned = 10,
 
         [Display(Name = "Em andamento")]
-        InProgress,
+        InProgress = 12,
 
         [Display(Name = "Encerrado")]
-        Closed,
+        Closed = 14,
 
         [Display(Name = "Cancelado")]
-        Canceled
+        Canceled = 16
     }
 }

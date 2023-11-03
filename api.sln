@@ -25,8 +25,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelo.Domain", "Modelo.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelo.Service", "Modelo.Service\Modelo.Service.csproj", "{2AE39314-F2D2-4D66-94B9-A836D0E67E82}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactproject1", "Modelo.Application\SrcReact\reactproject1\reactproject1.esproj", "{B3B01951-B87B-4E38-A6F8-243447905990}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,12 +51,6 @@ Global
 		{2AE39314-F2D2-4D66-94B9-A836D0E67E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AE39314-F2D2-4D66-94B9-A836D0E67E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AE39314-F2D2-4D66-94B9-A836D0E67E82}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3B01951-B87B-4E38-A6F8-243447905990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3B01951-B87B-4E38-A6F8-243447905990}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3B01951-B87B-4E38-A6F8-243447905990}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B3B01951-B87B-4E38-A6F8-243447905990}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3B01951-B87B-4E38-A6F8-243447905990}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3B01951-B87B-4E38-A6F8-243447905990}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,7 +63,6 @@ Global
 		{6359A235-EB7B-4CDF-81DD-682DFB8E5D63} = {965AAEA9-F3C1-420B-8626-6E4A43AC4871}
 		{5A8F0749-2982-41F2-94A7-0FDF8F84F819} = {3ADF831A-956B-49E8-95D2-379A3F68A436}
 		{2AE39314-F2D2-4D66-94B9-A836D0E67E82} = {07FF5850-ED34-4EF7-9A01-D9193D2F076B}
-		{B3B01951-B87B-4E38-A6F8-243447905990} = {965AAEA9-F3C1-420B-8626-6E4A43AC4871}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80F5CB8B-5053-4F8B-824C-578C4795A81A}

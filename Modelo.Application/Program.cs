@@ -75,8 +75,6 @@ builder.Services.AddScoped<IServiceEmployees, ServiceEmployees>();
 builder.Services.AddScoped<IEmployeesServiceApi, EmployeesServiceApi>();
 builder.Services.AddScoped<IUpdateRepository, UpdateRepository>();
 builder.Services.AddScoped<IUpdateService, UpdateService>();
-builder.Services.AddScoped<TaskUpdateProject<Project>>();
-builder.Services.AddScoped(typeof(BaseService<Project>));
 
 
 builder.Services.AddSingleton(new MapperConfiguration(config =>

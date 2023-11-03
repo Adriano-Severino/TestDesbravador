@@ -8,14 +8,12 @@ namespace Modelo.Service.Services
     public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : BaseEntity
     {
         private readonly IBaseRepository<TEntity> _baseRepository;
-        private readonly IUpdateRepository _updateRepositoryService;
         private readonly IUpdateService _updateService;
         private readonly IMapper _mapper;
-        public BaseService(IBaseRepository<TEntity> baseRepository, IMapper mapper, IUpdateRepository updateRepositoryService, IUpdateService updateService)
+        public BaseService(IBaseRepository<TEntity> baseRepository, IMapper mapper, IUpdateService updateService)
         {
             _baseRepository = baseRepository;
             _mapper = mapper;
-            _updateRepositoryService = updateRepositoryService;
             _updateService = updateService;
         }
         public async Task<TOutputModel> Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)

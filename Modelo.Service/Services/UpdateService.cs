@@ -14,7 +14,7 @@ namespace Modelo.Service.Services
             var project = await _updateRepository.GetProjectAsync();
             foreach (var item in project)
             {
-                if ((int)item.StatusProjectEnum < 7)
+                if ((int)item.StatusProjectEnum < 16)
                 {
                     item.StatusProjectEnum++;
                 }

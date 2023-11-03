@@ -12,7 +12,7 @@ using Modelo.Infra.Data.Context;
 namespace Modelo.Infra.Data.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20231102221057_Initial")]
+    [Migration("20231103014017_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -67,7 +67,7 @@ namespace Modelo.Infra.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bb82410e-b06b-4541-bc2c-7a40c7dfb8d8"),
+                            Id = new Guid("e166e331-dd18-4a0f-a3c1-2f6fddd7f317"),
                             Email = "admin@admin.com",
                             Nome = "Adminsitrador",
                             Password = "123",

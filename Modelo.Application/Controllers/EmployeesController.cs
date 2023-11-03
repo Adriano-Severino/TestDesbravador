@@ -30,7 +30,6 @@ namespace Modelo.Application.Controllers
         public async Task<ResultLoginDto> Login([FromBody] LoginEmployeesModel user)
         {
             return await _tokenService.LoginAsync(user.Email, user.Password);
-
         }
 
         [HttpPost]

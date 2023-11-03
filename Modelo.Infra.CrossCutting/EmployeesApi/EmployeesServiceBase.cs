@@ -11,7 +11,7 @@
 
         public string GetUriServiceAsync()
         {
-            BaseApiUrl = $"https://randomuser.me/api/?results=50";
+            BaseApiUrl = $"https://randomuser.me/api/?results=10";
             return BaseApiUrl;
         }
     }
