@@ -4,6 +4,6 @@ namespace Modelo.Infra.CrossCutting.Interfaces
 {
     public interface IEmployeesServiceApi
     {
-        public Task<EmployeesModels> GetEmployees();
+        public Task<EmployeesModels> GetEmployeesAsync();
     }
 }

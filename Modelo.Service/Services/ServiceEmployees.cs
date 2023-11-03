@@ -15,9 +15,9 @@ namespace Modelo.Service.Services
             _baseUserService = baseUserService;
             _employeesService = employeesService;
         }
-        public async Task<List<CreateEmployeesDto>> CreateEmployeesByApi()
+        public async Task<List<CreateEmployeesDto>> CreateEmployeesByApiAsync()
         {
-            var employeesList = await _employeesService.GetEmployees();
+            var employeesList = await _employeesService.GetEmployeesAsync();
             var result = new List<CreateEmployeesDto>();
             foreach (var item in employeesList.Results)
             {
@@ -26,7 +26,7 @@ namespace Modelo.Service.Services
                 createEmployeesDto.Sobrenome = item.Name.Last;
                 createEmployeesDto.Email = item.Email;
                 createEmployeesDto.Password = item.Login.Password;
-                await _baseUserService.Add<CreateEmployeesDto, Employees, EmployeesValidator>(createEmployeesDto);
+                await _baseUserService.AddAsync<CreateEmployeesDto, Employees, EmployeesValidator>(createEmployeesDto);
                 result.Add(createEmployeesDto);
 
             }

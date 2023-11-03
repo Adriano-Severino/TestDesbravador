@@ -5,21 +5,17 @@ namespace Modelo.Domain.Interfaces
 {
     public interface IBaseService<TEntity> where TEntity : BaseEntity
     {
-        Task<TOutputModel> Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
-              where TValidator : AbstractValidator<TEntity>
-              where TInputModel : class
-              where TOutputModel : class;
-
-        Task<bool> Delete(Guid id);
-        Task<IEnumerable<TOutputModel>> Get<TOutputModel>() where TOutputModel : class;
-
-        Task<TOutputModel> GetById<TOutputModel>(Guid id) where TOutputModel : class;
-        Task<TOutputModel> GetByEmail<TOutputModel>(string email) where TOutputModel : class;
-
-        Task<TOutputModel> Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
-              where TValidator : AbstractValidator<TEntity>
-              where TInputModel : class
-              where TOutputModel : class;
-        //void CreateEmployeesByApi(Employees employees);
+        public Task<TOutputModel> AddAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+               where TValidator : AbstractValidator<TEntity>
+               where TInputModel : class
+               where TOutputModel : class;
+        public Task<bool> DeleteAsync(Guid id);
+        public Task<IEnumerable<TOutputModel>> GetAsync<TOutputModel>() where TOutputModel : class;
+        public Task<TOutputModel> GetByIdAsync<TOutputModel>(Guid id) where TOutputModel : class;
+        public Task<TOutputModel> GetByEmailAsync<TOutputModel>(string email) where TOutputModel : class;
+        public Task<TOutputModel> UpdateAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+               where TValidator : AbstractValidator<TEntity>
+               where TInputModel : class
+               where TOutputModel : class;
     }
 }

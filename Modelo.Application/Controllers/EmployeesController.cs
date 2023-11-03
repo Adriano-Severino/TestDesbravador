@@ -9,7 +9,6 @@ using Modelo.Service.Validators;
 namespace Modelo.Application.Controllers
 {
     [Route("api/v1/[controller]")]
-    [AllowAnonymous]
     [ApiController]
     public class EmployeesController : ControllerBase
     {
@@ -27,7 +26,7 @@ namespace Modelo.Application.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public async Task<ResultLoginDto> Login([FromBody] LoginEmployeesModel user)
+        public async Task<ResultLoginDto> LoginAsync([FromBody] LoginEmployeesModel user)
         {
             return await _tokenService.LoginAsync(user.Email, user.Password);
         }
@@ -35,12 +34,12 @@ namespace Modelo.Application.Controllers
         [HttpPost]
         [Authorize(Policy = "Admin")]
         [Route("create")]
-        public async Task<IActionResult> Create([FromBody] CreateEmployeesModel createEmployees)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateEmployeesModel createEmployees)
         {
             if (createEmployees == null)
                 return NotFound();
 
-            return await ExecuteAsync(async () => await _baseUserService.Add<CreateEmployeesModel, EmployeesModel, EmployeesValidator>(createEmployees));
+            return await ExecuteAsync(async () => await _baseUserService.AddAsync<CreateEmployeesModel, EmployeesModel, EmployeesValidator>(createEmployees));
         }
 
         [HttpPut]
@@ -51,7 +50,7 @@ namespace Modelo.Application.Controllers
             if (updateEmployees == null)
                 return NotFound();
 
-            return await ExecuteAsync(async () => await _baseUserService.Add<UpdateEmployeesModel, EmployeesModel, EmployeesValidator>(updateEmployees));
+            return await ExecuteAsync(async () => await _baseUserService.AddAsync<UpdateEmployeesModel, EmployeesModel, EmployeesValidator>(updateEmployees));
         }
 
 
@@ -60,28 +59,28 @@ namespace Modelo.Application.Controllers
         [Route("get-employees-api")]
         public async Task<IActionResult> CreateEmployeesByApi()
         {
-            return await ExecuteAsync(async () => await _serviceEmployees.CreateEmployeesByApi());
+            return await ExecuteAsync(async () => await _serviceEmployees.CreateEmployeesByApiAsync());
         }
 
 
         [HttpPut]
         [Authorize(Policy = "Admin")]
         [Route("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateEmployeesModel updateEmployees)
+        public async Task<IActionResult> UpdateAsync([FromBody] UpdateEmployeesModel updateEmployees)
         {
             if (updateEmployees == null)
                 return NotFound();
 
-            return await ExecuteAsync(async () => await _baseUserService.Update<UpdateEmployeesModel, EmployeesModel, EmployeesValidator>(updateEmployees));
+            return await ExecuteAsync(async () => await _baseUserService.UpdateAsync<UpdateEmployeesModel, EmployeesModel, EmployeesValidator>(updateEmployees));
         }
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await ExecuteAsync(async () =>
             {
-                await _baseUserService.Delete(id);
+                await _baseUserService.DeleteAsync(id);
                 return true;
             });
 
@@ -92,16 +91,16 @@ namespace Modelo.Application.Controllers
         [HttpGet]
         [Route("get")]
         [Authorize(Policy = "Admin, User")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return await ExecuteAsync(async () => await _baseUserService.Get<EmployeesModel>());
+            return await ExecuteAsync(async () => await _baseUserService.GetAsync<EmployeesModel>());
         }
 
         [HttpGet("{id}")]
         [Authorize(Policy = "Admin, User")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetAsync(Guid id)
         {
-            return await ExecuteAsync(async () => await _baseUserService.GetById<EmployeesModel>(id));
+            return await ExecuteAsync(async () => await _baseUserService.GetByIdAsync<EmployeesModel>(id));
         }
 
         private async Task<IActionResult> ExecuteAsync(Func<Task<object>> func)

@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modelo.Infra.Data.Context;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,15 +18,15 @@ namespace Modelo.Infra.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.13")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Modelo.Domain.Entities.Employees", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -44,10 +44,10 @@ namespace Modelo.Infra.Data.Migrations
                         .HasColumnName("Password");
 
                     b.Property<Guid?>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Role")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("Role");
 
                     b.Property<string>("Sobrenome")
@@ -64,7 +64,7 @@ namespace Modelo.Infra.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e166e331-dd18-4a0f-a3c1-2f6fddd7f317"),
+                            Id = new Guid("6487d702-138d-4e76-aa2a-935109dd15be"),
                             Email = "admin@admin.com",
                             Nome = "Adminsitrador",
                             Password = "123",
@@ -77,7 +77,7 @@ namespace Modelo.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("date")
@@ -94,7 +94,7 @@ namespace Modelo.Infra.Data.Migrations
                         .HasColumnName("NomeProjeto");
 
                     b.Property<int>("ProjectRiskEnum")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("RiscoProjeto");
 
                     b.Property<DateTime>("StartDate")
@@ -102,7 +102,7 @@ namespace Modelo.Infra.Data.Migrations
                         .HasColumnName("DataInicio");
 
                     b.Property<int>("StatusProjectEnum")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("StatusProjeto");
 
                     b.HasKey("Id");

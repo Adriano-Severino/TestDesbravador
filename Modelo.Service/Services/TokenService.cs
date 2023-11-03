@@ -19,7 +19,7 @@ namespace Modelo.Service.Services
 
         public async Task<ResultLoginDto> LoginAsync(string email, string password)
         {
-            var userDomain = await _baseUserService.GetByEmail<Employees>(email);
+            var userDomain = await _baseUserService.GetByEmailAsync<Employees>(email);
             var resultLoginDto = new ResultLoginDto();
             if (userDomain == null)
             {
@@ -36,13 +36,13 @@ namespace Modelo.Service.Services
                 resultLoginDto.Token = null;
                 return resultLoginDto;
             }
-            var token = await GetTokenAsync(userDomain);
+            var token = GetTokenAsync(userDomain);
             resultLoginDto.Success = true;
             resultLoginDto.Message = "Logim feito com sucesso!";
             resultLoginDto.Token = token;
             return resultLoginDto;
         }
-        private async Task<string> GetTokenAsync(Employees employees)
+        private string GetTokenAsync(Employees employees)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);

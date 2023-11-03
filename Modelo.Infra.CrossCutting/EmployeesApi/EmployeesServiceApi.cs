@@ -8,7 +8,7 @@ namespace Modelo.Infra.CrossCutting.EmployeesApi
 {
     public class EmployeesServiceApi : EmployeesServiceBase, IEmployeesServiceApi
     {
-        public async Task<EmployeesModels> GetEmployees()
+        public async Task<EmployeesModels> GetEmployeesAsync()
         {
             try
             {

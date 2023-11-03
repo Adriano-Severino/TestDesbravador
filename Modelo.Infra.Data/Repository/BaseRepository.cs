@@ -13,26 +13,23 @@ namespace Modelo.Infra.Data.Repository
         {
             _sqlContext = sqlContext;
         }
-        public void Insert(TEntity obj)
+        public void InsertAsync(TEntity obj)
         {
             _sqlContext.Set<TEntity>().Add(obj);
             _sqlContext.SaveChanges();
         }
-
-        public void Update(TEntity obj)
+        public void UpdateAsync(TEntity obj)
         {
             _sqlContext.Entry(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _sqlContext.SaveChanges();
         }
-
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            _sqlContext.Set<TEntity>().Remove(Select(id).Result);
+            _sqlContext.Set<TEntity>().Remove(SelectAsync(id).Result);
             await _sqlContext.SaveChangesAsync();
             return true;
         }
-
-        public async Task<IList<TEntity>> Select()
+        public async Task<IList<TEntity>> SelectAsync()
         {
             if (typeof(TEntity) == typeof(Project))
             {
@@ -45,11 +42,10 @@ namespace Modelo.Infra.Data.Repository
                 return await _sqlContext.Set<TEntity>().ToListAsync();
             }
         }
-
-        public async Task<TEntity> Select(Guid id) =>
+        public async Task<TEntity> SelectAsync(Guid id) =>
           await _sqlContext.Set<TEntity>().FindAsync(id);
 
-        public async Task<Employees> SelectByEmail(string email) =>
+        public async Task<Employees> SelectByEmailAsync(string email) =>
           await _sqlContext.Set<Employees>().FirstOrDefaultAsync(user => user.Email == email);
 
     }
